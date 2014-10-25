@@ -10,7 +10,7 @@ You can try feedlink before install if the PYTHONPATH is extended with the
 lib directory
 
 ```bash
-PYTHONPATH=./lib:$PYTHONPATH ./bin/feedlink < doc.html > link.json
+PYTHONPATH=./lib:$PYTHONPATH ./bin/classfeedlinks < doc.html > link.json
 ```
 
 Install

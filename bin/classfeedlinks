@@ -11,7 +11,7 @@ from feedlink.classify import classify, get_feed_types, UnknownFeedError
 
 def get_options(args):
     parser = ArgumentParser(
-        description='classify the feed links from html files')
+        description='classify the feed links from html file')
     parser.add_argument('html', nargs='?', type=FileType('r'),
         default=stdin, help='name of the input html file')
     parser.add_argument('--json', nargs='?', type=FileType('w'),
