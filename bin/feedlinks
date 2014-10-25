@@ -3,7 +3,7 @@ from argparse import ArgumentParser, FileType
 from sys import argv, stdin, stdout, path
 from os.path import dirname, realpath
 
-basedir = realpath(dirname(__file__)+'/../..')
+basedir = realpath(dirname(__file__)+'/..')
 
 
 def get_options(args):
@@ -21,13 +21,16 @@ def get_options(args):
 
 def main(html, json):
     body =  html.read()
-    
+    for link in get_links(body):
+        print link
     return
 
 if __name__ == '__main__':
     options = get_options(argv[1:])
     if options.pop('local'):
         path.append(basedir + '/src')
+    from feedlink.linkreader import get_links
+
     status = main(**options)
     exit(status)
 

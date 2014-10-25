@@ -24,8 +24,12 @@ class TestLinkReader(TestCase):
 
 class TestGetLinks:
     def test_get_links(self):
-        with open(basedir+'/test/data/feeds.html') as fh:
-            links = get_links(fh)
+        html = '''
+        <a href="foo/bar">
+        <link href="spam/egg">
+        '''
+        links = get_links(html)
+        self.assertListEqual(self.reader.links, ['foo/bar', 'spam/egg'])
         return
 
 if __name__ == '__main__':

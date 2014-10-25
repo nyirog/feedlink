@@ -16,17 +16,16 @@ class _LinkReader(HTMLParser):
             self.links.append(attrs[self._link_attr])
         return
 
-def get_links(fh):
+def get_links(html):
     """
-    Read the href attributes from link and a tag of fh html file
+    Read the href attributes from link and a tag of html document
     
     Args:
-        fh: file handle of the html file
+        html: html document
 
     Returns:
         list of the links
     """
-    html = fh.read()
-    reader = LinkReader()
+    reader = _LinkReader()
     reader.feed(html)
     return reader.links
