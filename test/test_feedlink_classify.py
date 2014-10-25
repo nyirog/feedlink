@@ -13,12 +13,26 @@ class TestClassify(TestCase):
         return
 
 class TestRss(TestCase):
-    def test_valid_rss(self):
+    def test_valid(self):
         self.assertTrue(rss.check('<rss type="2.0"></rss>'))
         return
 
-    def test_invalid_xml(self):
+    def test_invalid(self):
         self.assertFalse(rss.check('<rss type="2.0"></rss'))
+        return
+
+    def test_link(self):
+        self.assertEqual(classify('http://comment.blog.hu/rss'), 'rss')
+        return
+
+class TestAtom(TestCase):
+    def test_valid(self):
+        feed = '<feed xmlns="%s"></feed>' % atom.xmlns
+        self.assertTrue(atom.check(feed))
+        return
+
+    def test_link(self):
+        self.assertEqual(classify('http://comment.blog.hu/atom'), 'atom')
         return
 
 if __name__ == '__main__':

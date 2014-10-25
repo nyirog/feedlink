@@ -38,7 +38,9 @@ class TestMain(TestCase):
         self.stdin = StringIO("""
         <a href="http://feeds.feedburner.com/codinghorror"/>
         <br/>
-        <link href="http://www.hwsw.hu/xml/latest_news_rss.xml">
+        <link href="http://www.hwsw.hu/xml/latest_news_rss.xml"/>
+        <link href="http://comment.blog.hu/atom"
+              type="application/atom+xml"/>
         """)
         return
 
@@ -53,7 +55,9 @@ class TestMain(TestCase):
                     "http://feeds.feedburner.com/codinghorror",
                     "http://www.hwsw.hu/xml/latest_news_rss.xml",
                 ],
-                'atom': []
+                'atom': [
+                    'http://comment.blog.hu/atom',
+                ],
             }
         )
         return
@@ -63,6 +67,7 @@ class TestBuild(TestCase):
         self.links = [
             "http://feeds.feedburner.com/codinghorror",
             "http://www.hwsw.hu/xml/latest_news_rss.xml",
+            "http://comment.blog.hu/atom",
         ]
         return
 
@@ -70,8 +75,13 @@ class TestBuild(TestCase):
         feeds = feedlinks.build(self.links)
         self.assertDictEqual(feeds,
             {
-                'rss': self.links,
-                'atom': [],
+                'rss': [
+                    "http://feeds.feedburner.com/codinghorror",
+                    "http://www.hwsw.hu/xml/latest_news_rss.xml",
+                ],
+                'atom': [
+                    'http://comment.blog.hu/atom',
+                ],
             }
         )
         return
