@@ -1,4 +1,7 @@
-# classfeedlink
+feedlink
+========
+
+rss/atom feed classifier
 
 ## Usage
 
