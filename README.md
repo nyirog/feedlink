@@ -3,16 +3,18 @@ feedlink
 
 rss/atom feed classifier
 
-## Usage
+Usage
+-----
 
 You can try feedlink before install if the PYTHONPATH is extended with the 
-src directory
+lib directory
 
 ```bash
-PYTHONPATH=./src:$PYTHONPATH ./bin/feedlink < doc.html > link.json
+PYTHONPATH=./lib:$PYTHONPATH ./bin/feedlink < doc.html > link.json
 ```
 
-## Install
+Install
+-------
 
 classfeedlink depends on the lxml third party python package.
 
@@ -21,7 +23,8 @@ sudo apt-get install python-lxml
 sudo python setup.py install
 ```
 
-## Test
+Test
+----
 
 Run all the test
 
