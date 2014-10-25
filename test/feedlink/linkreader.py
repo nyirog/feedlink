@@ -22,7 +22,7 @@ class TestLinkReader(TestCase):
         self.assertListEqual(self.reader.links, ['foo/bar', 'spam/egg'])
         return
 
-class TestGetLinks
+class TestGetLinks:
     def test_get_links(self):
         with open(basedir+'/test/data/feeds.html') as fh:
             links = get_links(fh)
