@@ -4,7 +4,7 @@ from unittest import TestCase, main
 from os.path import dirname, realpath
 
 basedir = realpath(dirname(__file__)+'/..')
-path.append(basedir + '/src')
+path.append(basedir + '/lib')
 from feedlink.linkreader import _LinkReader, get_links
 
 class TestLinkReader(TestCase):

@@ -12,7 +12,7 @@ feedlinks = None
 def setUpModule():
     global feedlinks
 
-    path.append(basedir+'/src')
+    path.append(basedir+'/lib')
     path.append(basedir+'/bin')
     feedlinks = load_source('feedlinks', basedir+'/bin/classfeedlinks')
     return

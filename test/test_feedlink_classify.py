@@ -4,7 +4,7 @@ from unittest import TestCase, main
 from os.path import dirname, realpath
 
 basedir = realpath(dirname(__file__)+'/..')
-path.append(basedir + '/src')
+path.append(basedir + '/lib')
 from feedlink.classify import classify, get_feed_types, rss, atom
 
 class TestClassify(TestCase):
