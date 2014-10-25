@@ -14,7 +14,7 @@ def setUpModule():
 
     path.append(basedir+'/src')
     path.append(basedir+'/bin')
-    feedlinks = load_source('feedlinks', basedir+'/bin/feedlinks')
+    feedlinks = load_source('feedlinks', basedir+'/bin/classfeedlinks')
     return
 
 class TestGetOptions(TestCase):

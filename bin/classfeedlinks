@@ -6,6 +6,7 @@ from urllib2 import urlopen
 from json import dump
 
 from feedlink.linkreader import get_links
+from feedlink.classify import classify, get_feed_types, UnknownFeedError
 
 
 def get_options(args):
@@ -27,10 +28,14 @@ def main(html, json):
     return 0
 
 def build(links):
-    feeds = dict(atom=[], rss=[])
+    feeds = {feed_type: [] for feed_type in get_feed_types()}
     for link in links:
-        fh = urlopen(link)
-        feed = fh.read()
+        try:
+            feed_type = classify(link)
+        except UnknownFeedError, error:
+            pass
+        else:
+            feeds[feed_type].append(link)
     return feeds
 
 if __name__ == '__main__':
