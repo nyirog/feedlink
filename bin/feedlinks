@@ -27,7 +27,7 @@ def main(html, json):
     return 0
 
 def build(links):
-    feeds = {}
+    feeds = dict(atom=[], rss=[])
     for link in links:
         fh = urlopen(link)
         feed = fh.read()

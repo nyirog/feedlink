@@ -47,7 +47,7 @@ class TestMain(TestCase):
         feedlinks.main(self.stdin, stdout)
         stdout.seek(0)
         feeds = load(stdout)
-        self.assertDictEqual(feeds, {})
+        self.assertDictEqual(feeds, {'rss': [], 'atom': []})
         return
 
 class TestBuild(TestCase):
@@ -59,6 +59,8 @@ class TestBuild(TestCase):
         return
 
     def test(self):
+       feeds = feedlinks.build(self.links)
+       self.assertDictEqual(feeds, {'rss': [], 'atom': []})
        return
 
 if __name__ == '__main__':
