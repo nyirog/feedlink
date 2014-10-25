@@ -47,7 +47,15 @@ class TestMain(TestCase):
         feedlinks.main(self.stdin, stdout)
         stdout.seek(0)
         feeds = load(stdout)
-        self.assertDictEqual(feeds, {'rss': [], 'atom': []})
+        self.assertDictEqual(feeds,
+            {
+                'rss': [
+                    "http://feeds.feedburner.com/codinghorror",
+                    "http://www.hwsw.hu/xml/latest_news_rss.xml",
+                ],
+                'atom': []
+            }
+        )
         return
 
 class TestBuild(TestCase):
@@ -59,9 +67,14 @@ class TestBuild(TestCase):
         return
 
     def test(self):
-       feeds = feedlinks.build(self.links)
-       self.assertDictEqual(feeds, {'rss': [], 'atom': []})
-       return
+        feeds = feedlinks.build(self.links)
+        self.assertDictEqual(feeds,
+            {
+                'rss': self.links,
+                'atom': [],
+            }
+        )
+        return
 
 if __name__ == '__main__':
     main()
