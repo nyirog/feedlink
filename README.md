@@ -1,4 +1,4 @@
-# feedlink
+# classfeedlink
 
 ## Usage
 
@@ -11,8 +11,11 @@ PYTHONPATH=./src:$PYTHONPATH ./bin/feedlink < doc.html > link.json
 
 ## Install
 
+classfeedlink depends on the lxml third party python package.
+
 ```bash
-python setup.py install
+sudo apt-get install python-lxml
+sudo python setup.py install
 ```
 
 ## Test
