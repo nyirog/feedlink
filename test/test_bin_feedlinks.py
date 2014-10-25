@@ -3,6 +3,8 @@ from sys import path
 from unittest import TestCase, main
 from os.path import dirname, realpath
 from imp import load_source
+from StringIO import StringIO
+from json import load
 
 basedir = realpath(dirname(__file__)+'/..')
 feedlinks = None
@@ -10,6 +12,7 @@ feedlinks = None
 def setUpModule():
     global feedlinks
 
+    path.append(basedir+'/src')
     path.append(basedir+'/bin')
     feedlinks = load_source('feedlinks', basedir+'/bin/feedlinks')
     return
@@ -30,6 +33,33 @@ class TestGetOptions(TestCase):
         self.assertIsInstance(options['json'], file)
         return
 
+class TestMain(TestCase):
+    def setUp(self):
+        self.stdin = StringIO("""
+        <a href="http://feeds.feedburner.com/codinghorror"/>
+        <br/>
+        <link href="http://www.hwsw.hu/xml/latest_news_rss.xml">
+        """)
+        return
+
+    def test_main(self):
+        stdout = StringIO()
+        feedlinks.main(self.stdin, stdout)
+        stdout.seek(0)
+        feeds = load(stdout)
+        self.assertDictEqual(feeds, {})
+        return
+
+class TestBuild(TestCase):
+    def setUp(self):
+        self.links = [
+            "http://feeds.feedburner.com/codinghorror",
+            "http://www.hwsw.hu/xml/latest_news_rss.xml",
+        ]
+        return
+
+    def test(self):
+       return
 
 if __name__ == '__main__':
     main()
