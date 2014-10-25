@@ -1,6 +1,6 @@
 from HTMLParser import HTMLParser
 
-class LinkReader(HTMLParser):
+class _LinkReader(HTMLParser):
     _link_tags = {'link', 'a'}
     _link_attr = 'href'
     def __init__(self):
