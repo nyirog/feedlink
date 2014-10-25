@@ -8,6 +8,7 @@ setup(name='feedlink',
       author='Nyiro, Gergo',
       author_email='gergo.nyiro@gmail.com',
       packages=['feedlink'],
-      package_dir = {'': 'lib'}
+      package_dir = {'': 'lib'},
       scripts=['bin/classfeedlinks'],
+      requires=['lxml'],
  )
