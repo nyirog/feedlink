@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-import sys
-
+from sys import path
 from unittest import TestCase, main
 from os.path import dirname, realpath
 
-basedir = realpath(dirname(__file__)+'/../..')
-sys.path.append(basedir + '/src')
+basedir = realpath(dirname(__file__)+'/..')
+path.append(basedir + '/src')
 from feedlink.linkreader import _LinkReader, get_links
 
 class TestLinkReader(TestCase):

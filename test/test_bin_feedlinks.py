@@ -1,19 +1,16 @@
 #!/usr/bin/env python
-import sys
-
+from sys import path
 from unittest import TestCase, main
 from os.path import dirname, realpath
 from imp import load_source
 
-basedir = realpath(dirname(__file__)+'/../..')
-sys.path.append(basedir + '/bin')
-
-
+basedir = realpath(dirname(__file__)+'/..')
 feedlinks = None
 
 def setUpModule():
     global feedlinks
 
+    path.append(basedir+'/bin')
     feedlinks = load_source('feedlinks', basedir+'/bin/feedlinks')
     return
 
