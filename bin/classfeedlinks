@@ -3,7 +3,7 @@ from argparse import ArgumentParser, FileType
 from json import dump
 from os.path import dirname, realpath
 from sys import argv, stdin, stdout
-from urllib2 import urlopen
+from urllib2 import urlopen, URLError
 
 from jsonschema import validate
 
@@ -37,11 +37,13 @@ def get_options(args):
         default=stdin, help='name of the input html file')
     parser.add_argument('--json', nargs='?', type=FileType('w'),
         default=stdout, help='name of the output json file')
+    parser.add_argument('--timeout', type=int, default=60,
+        help='timeout for urlopen')
 
     options = parser.parse_args(args)
     return vars(options)
 
-def main(html, json):
+def main(html, json, timeout):
     """
     Read the link from *html* document and write the classified feed links
     into *json*.
@@ -49,26 +51,31 @@ def main(html, json):
     Args:
         html: file handle of the html document
         json: file handle of the json file
+        timeout: timeout for urlopen
     """
     links = get_links(html)
-    feeds = build(links)
+    feeds = build(links, timeout)
     validate(feeds, schema)
     dump(feeds, json, indent=4, sort_keys=True)
     return 0
 
-def build(links):
+def build(links, timeout):
     """
     Group the *links* under their feed types.
 
     Args:
         links: list of url links
+        timeout: timeout for urlopen
 
     Retunrs:
         {'atpm': [<atom feed link>,], 'rss': [<rss feed link>,]}
     """
     feeds = {feed_type: [] for feed_type in _feed_types}
     for link in links:
-        fh = urlopen(link)
+        try:
+            fh = urlopen(link, timeout=timeout)
+        except URLError, error:
+            continue
         try:
             feed_type = classify(fh)
         except UnknownFeedError, error:
