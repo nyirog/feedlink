@@ -11,6 +11,6 @@ setup(name='feedlink',
       packages=['feedlink'],
       package_dir = {'': 'lib'},
       scripts=['bin/classfeedlinks'],
-      requires=['lxml'],
+      requires=['lxml', 'jsonschema'],
       license=open(dirname(__file__)+'/LICENSE').read()
  )

@@ -46,10 +46,11 @@ $ ./bin/classfeedlinks --json feeds.json test/data/feeds.html
 Install
 -------
 
-feedlink depends on the lxml third party python package.
+feedlink depends on the lxmli and jsonschema third party python packages.
 
 ```bash
 sudo apt-get install python-lxml
+sudo apt-get install python-jsonschema
 sudo python setup.py install
 ```
 

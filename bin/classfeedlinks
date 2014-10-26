@@ -3,11 +3,20 @@ from argparse import ArgumentParser, FileType
 from json import dump
 from os.path import dirname, realpath
 from sys import argv, stdin, stdout
-from urllib2 import urlopen
+
+from jsonschema import validate
 
 from feedlink.classify import classify, get_feed_types, UnknownFeedError
 from feedlink.linkreader import get_links
 
+_feed_types = get_feed_types()
+schema = {
+    'type': 'object',
+    'properies': {
+        feed_type: {'type': 'array'} for feed_type in _feed_types
+    },
+    'required': _feed_types,
+}
 
 def get_options(args):
     """
@@ -42,6 +51,7 @@ def main(html, json):
     """
     links = get_links(html)
     feeds = build(links)
+    validate(feeds, schema)
     dump(feeds, json, indent=4, sort_keys=True)
     return 0
 
@@ -55,7 +65,7 @@ def build(links):
     Retunrs:
         {'atpm': [<atom feed link>,], 'rss': [<rss feed link>,]}
     """
-    feeds = {feed_type: [] for feed_type in get_feed_types()}
+    feeds = {feed_type: [] for feed_type in _feed_types}
     for link in links:
         try:
             feed_type = classify(link)
