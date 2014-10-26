@@ -22,11 +22,12 @@ def get_links(html):
     Read the href attributes from link and a tag of *html* document
     
     Args:
-        html: html document
+        html: file handle to an html document
 
     Returns:
         list of the links
     """
+    body = html.read()
     reader = _LinkReader()
-    reader.feed(html)
+    reader.feed(body)
     return reader.links

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from os.path import dirname, realpath
+from StringIO import StringIO
 from sys import path
 from unittest import TestCase, main
 
@@ -23,10 +24,10 @@ class TestLinkReader(TestCase):
 
 class TestGetLinks:
     def test_get_links(self):
-        html = '''
+        html = StringIO('''
         <a href="foo/bar">
         <link href="spam/egg">
-        '''
+        ''')
         links = get_links(html)
         self.assertListEqual(self.reader.links, ['foo/bar', 'spam/egg'])
         return

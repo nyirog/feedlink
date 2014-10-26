@@ -40,8 +40,7 @@ def main(html, json):
         html: file handle of the html document
         json: file handle of the json file
     """
-    body =  html.read()
-    links = get_links(body)
+    links = get_links(html)
     feeds = build(links)
     dump(feeds, json, indent=4, sort_keys=True)
     return 0
