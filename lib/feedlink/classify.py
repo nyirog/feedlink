@@ -1,12 +1,11 @@
 from lxml import etree
-from urllib2 import urlopen
 
-def classify(link):
+def classify(fh):
     """
     Classify the feed type of the *link*
 
     Args:
-        link: url link
+        fh: url handler
 
     Returns:
         feed type: 'atom' or 'rss'
@@ -14,9 +13,7 @@ def classify(link):
     Raises:
         UnknownFeedError: if the *link* does not point to a valid feed
     """
-    fh = urlopen(link)
     feed = fh.read()
-
     for subclass in FeedClassifier.__subclasses__():
         if subclass.check(feed):
             return subclass.__name__

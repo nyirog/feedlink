@@ -3,6 +3,7 @@ from argparse import ArgumentParser, FileType
 from json import dump
 from os.path import dirname, realpath
 from sys import argv, stdin, stdout
+from urllib2 import urlopen
 
 from jsonschema import validate
 
@@ -67,8 +68,9 @@ def build(links):
     """
     feeds = {feed_type: [] for feed_type in _feed_types}
     for link in links:
+        fh = urlopen(link)
         try:
-            feed_type = classify(link)
+            feed_type = classify(fh)
         except UnknownFeedError, error:
             pass
         else:

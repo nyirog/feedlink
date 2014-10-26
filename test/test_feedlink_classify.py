@@ -2,6 +2,7 @@
 from os.path import dirname, realpath
 from sys import path
 from unittest import TestCase, main
+from urllib2 import urlopen
 
 basedir = realpath(dirname(__file__)+'/..')
 path.append(basedir + '/lib')
@@ -22,7 +23,8 @@ class TestRss(TestCase):
         return
 
     def test_link(self):
-        self.assertEqual(classify('http://comment.blog.hu/rss'), 'rss')
+        fh = urlopen('http://comment.blog.hu/rss')
+        self.assertEqual(classify(fh), 'rss')
         return
 
 class TestAtom(TestCase):
@@ -32,7 +34,8 @@ class TestAtom(TestCase):
         return
 
     def test_link(self):
-        self.assertEqual(classify('http://comment.blog.hu/atom'), 'atom')
+        fh = urlopen('http://comment.blog.hu/atom')
+        self.assertEqual(classify(fh), 'atom')
         return
 
 if __name__ == '__main__':
