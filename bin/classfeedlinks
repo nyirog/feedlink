@@ -2,7 +2,7 @@
 from argparse import ArgumentParser, FileType
 from json import dump
 from os.path import dirname, realpath
-from sys import argv, stdin, stdout
+from sys import argv, stdin, stdout, stderr
 from urllib2 import urlopen, URLError
 
 from jsonschema import validate
@@ -72,14 +72,18 @@ def build(links, timeout):
     """
     feeds = {feed_type: [] for feed_type in _feed_types}
     for link in links:
+        print >> stderr, 'process %s' % link
         try:
             fh = urlopen(link, timeout=timeout)
         except URLError, error:
+            print >> stderr, 'url error: %s' % error.reason
             continue
         try:
             feed_type = classify(fh)
         except UnknownFeedError, error:
+            print >> stderr, 'link is not a valid feed'
             continue
+        print >> stderr, 'link is a %s feed' % feed_type
         feeds[feed_type].append(link)
     return feeds
 
