@@ -1,5 +1,5 @@
-from urllib2 import urlopen
 from lxml import etree
+from urllib2 import urlopen
 
 def classify(link):
     """

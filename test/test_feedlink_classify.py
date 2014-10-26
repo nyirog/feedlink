@@ -1,7 +1,7 @@
 #!/usr/bin/env python
+from os.path import dirname, realpath
 from sys import path
 from unittest import TestCase, main
-from os.path import dirname, realpath
 
 basedir = realpath(dirname(__file__)+'/..')
 path.append(basedir + '/lib')

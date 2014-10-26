@@ -1,10 +1,10 @@
 #!/usr/bin/env python
+from imp import load_source
+from json import load
+from os.path import dirname, realpath
+from StringIO import StringIO
 from sys import path
 from unittest import TestCase, main
-from os.path import dirname, realpath
-from imp import load_source
-from StringIO import StringIO
-from json import load
 
 basedir = realpath(dirname(__file__)+'/..')
 feedlinks = None
