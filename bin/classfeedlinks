@@ -20,7 +20,9 @@ def get_options(args):
         Dictionary of the parsed arguments
     """
     parser = ArgumentParser(
-        description='classify the feed links from html document')
+        description='Group the feed links from html doc '
+                    'under their feed type into json doc',
+        )
     parser.add_argument('html', nargs='?', type=FileType('r'),
         default=stdin, help='name of the input html file')
     parser.add_argument('--json', nargs='?', type=FileType('w'),
