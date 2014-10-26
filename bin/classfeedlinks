@@ -79,9 +79,8 @@ def build(links, timeout):
         try:
             feed_type = classify(fh)
         except UnknownFeedError, error:
-            pass
-        else:
-            feeds[feed_type].append(link)
+            continue
+        feeds[feed_type].append(link)
     return feeds
 
 if __name__ == '__main__':
