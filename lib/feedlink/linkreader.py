@@ -1,6 +1,7 @@
 from HTMLParser import HTMLParser
 
 class _LinkReader(HTMLParser):
+    """html parser to retriev the link attributes"""
     _link_tags = {'link', 'a'}
     _link_attr = 'href'
     def __init__(self):
@@ -18,7 +19,7 @@ class _LinkReader(HTMLParser):
 
 def get_links(html):
     """
-    Read the href attributes from link and a tag of html document
+    Read the href attributes from link and a tag of *html* document
     
     Args:
         html: html document

@@ -10,8 +10,17 @@ from feedlink.classify import classify, get_feed_types, UnknownFeedError
 
 
 def get_options(args):
+    """
+    Parse command line arguments and provide a dictionary from them.
+
+    Args:
+        args: list of cli arguments
+
+    Returns:
+        Dictionary of the parsed arguments
+    """
     parser = ArgumentParser(
-        description='classify the feed links from html file')
+        description='classify the feed links from html document')
     parser.add_argument('html', nargs='?', type=FileType('r'),
         default=stdin, help='name of the input html file')
     parser.add_argument('--json', nargs='?', type=FileType('w'),
@@ -21,6 +30,14 @@ def get_options(args):
     return vars(options)
 
 def main(html, json):
+    """
+    Read the link from *html* document and write the classified feed links
+    into *json*.
+
+    Args:
+        html: file handle of the html document
+        json: file handle of the json file
+    """
     body =  html.read()
     links = get_links(body)
     feeds = build(links)
@@ -28,6 +45,15 @@ def main(html, json):
     return 0
 
 def build(links):
+    """
+    Group the *links* under their feed types.
+
+    Args:
+        links: list of url links
+
+    Retunrs:
+        {'atpm': [<atom feed link>,], 'rss': [<rss feed link>,]}
+    """
     feeds = {feed_type: [] for feed_type in get_feed_types()}
     for link in links:
         try:

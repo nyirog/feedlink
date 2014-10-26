@@ -2,6 +2,18 @@ from urllib2 import urlopen
 from lxml import etree
 
 def classify(link):
+    """
+    Classify the feed type of the *link*
+
+    Args:
+        link: url link
+
+    Returns:
+        feed type: 'atom' or 'rss'
+
+    Raises:
+        UnknownFeedError: if the *link* does not point to a valid feed
+    """
     fh = urlopen(link)
     feed = fh.read()
 
@@ -11,17 +23,26 @@ def classify(link):
     raise UnknownFeedError()
 
 def get_feed_types():
+    """List the available feed types by this feed classifier module."""
     types = [subcls.__name__ for subcls in FeedClassifier.__subclasses__()]
     return types
 
 
 class FeedClassifier(object):
+    """
+    Super class of the feed classifiers. The check class method has to be
+    overwritten by the descendant classes.
+
+    The name of the descendant class will be its feed type.
+    """
     @classmethod
     def check(cls, feed):
+        """Validate the *feed* content"""
         return False
 
 
 class atom(FeedClassifier):
+    """atom feed classifier"""
     xmlns = 'http://www.w3.org/2005/Atom'
     @classmethod
     def check(cls, feed):
@@ -36,6 +57,7 @@ class atom(FeedClassifier):
 
 
 class rss(FeedClassifier):
+    """rss feed classifier"""
     @classmethod
     def check(cls, feed):
         try:
