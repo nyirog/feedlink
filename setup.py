@@ -12,5 +12,6 @@ setup(name='feedlink',
       package_dir = {'': 'lib'},
       scripts=['bin/classfeedlinks'],
       requires=['lxml', 'jsonschema'],
-      license=open(dirname(__file__)+'/LICENSE').read()
+      license=open(dirname(__file__)+'/LICENSE').read(),
+      url='https://github.com/nyirog/feedlink',
  )

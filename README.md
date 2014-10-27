@@ -1,7 +1,7 @@
 feedlink
 ========
 
-rss/atom feed classifier
+rss/atom feed classifier written in python 2.7
 
 Usage
 -----
@@ -10,7 +10,7 @@ You can try feedlink before install if the PYTHONPATH is extended with the
 lib directory
 
 ```bash
-$ PYTHONPATH=./lib:$PYTHONPATH
+$ export PYTHONPATH=./lib:$PYTHONPATH
 ```
 
 ```bash
@@ -63,3 +63,4 @@ Run all the test
 python -m unittest discover -s test -p test_*.py
 ```
 
+feedlink is tested under Ubuntu 14.04 with python 2.7.6.
