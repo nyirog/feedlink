@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 from imp import load_source
 from json import load
+from os import remove
 from os.path import dirname, realpath
 from StringIO import StringIO
-from sys import path
+from sys import path, stdin, stdout, stderr
 from unittest import TestCase, main
 
 basedir = realpath(dirname(__file__)+'/..')
@@ -87,6 +88,26 @@ class TestBuild(TestCase):
                 ],
             }
         )
+        return
+
+class TestCloseOptionFiles(TestCase):
+    def setUp(self):
+        self.filename = 'foo'
+        self.options = feedlinks.Options(option=open(self.filename, 'w'),
+                                         stdin=stdin, stdout=stdout,
+                                         stderr=stderr)
+        return
+
+    def tearDown(self):
+        remove(self.filename)
+        return
+
+    def test_close_file_options(self):
+        self.options._close_file_options()
+        for name in ['option']:
+            self.assertTrue(self.options[name].closed)
+        for name in ['stdin', 'stdout', 'stderr']:
+            self.assertFalse(self.options[name].closed)
         return
 
 if __name__ == '__main__':

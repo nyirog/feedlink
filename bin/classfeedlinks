@@ -41,7 +41,26 @@ def get_options(args):
         help='timeout for urlopen')
 
     options = parser.parse_args(args)
-    return vars(options)
+    return Options(vars(options))
+
+class Options(dict):
+    def __del__(self):
+        self._close_file_options()
+        return
+
+    def _close_file_options(self):
+        """
+        Close option files from *_file_names* if they are not pointed to stdin,
+        stdout or stderr.
+        """
+        std_files = [stderr, stdout]
+
+        for option_file in self.itervalues():
+            if (    isinstance(option_file, file)
+                and not option_file.closed
+                and option_file.fileno() not in (0, 1, 2)):
+                option_file.close()
+        return
 
 def main(html, json, timeout):
     """
@@ -83,6 +102,7 @@ def build(links, timeout):
         except UnknownFeedError, error:
             print >> stderr, 'link is not a valid feed'
             continue
+        fh.close()
         print >> stderr, 'link is a %s feed' % feed_type
         feeds[feed_type].append(link)
     return feeds
